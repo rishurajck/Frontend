@@ -1,0 +1,169 @@
+.container {
+  padding: 2rem;
+  font-family: "Inter", sans-serif;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.formWrapper {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  font-family: "Inter", sans-serif;
+}
+
+.description {
+  margin: 10px 0 20px;
+  color: #555;
+}
+
+.stepsList {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  color: #333;
+}
+
+.stepsList li {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.link {
+  color: #0073e6;
+  text-decoration: underline;
+}
+
+.codeBlock {
+  background-color: #fafafa;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 0.9rem;
+  max-height: 30vh;
+  overflow-y: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputContainer {
+  margin-top: 0.5rem;
+}
+
+.readOnlyInput {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.arnImage img {
+  margin-top: 1rem;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.inputField {
+  margin-top: 0.5rem;
+  padding: 0.6rem;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.cancel {
+  background: transparent;
+  color: #555;
+  border: 1px solid #aaa;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cancel:hover {
+  background-color: rgba(203, 203, 203, 0.372);
+}
+
+.next {
+  background-color: #1a73e8;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+.next:hover {
+  background-color: #024295;
+}
+
+.accountDetails {
+  display: flex;
+
+  list-style: none;
+  gap: 20px;
+}
+
+.copyButton {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.copyButton:hover {
+  background-color: #0056b3;
+}
+
+.inputContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.readOnlyInput {
+  flex-grow: 1;
+}
+
+.copyIcon {
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+}
+.inputWrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.readOnlyInput {
+  width: 100%;
+  padding-right: 40px; /* space for the icon */
+}
+
+.copyIconInsideInput {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+}
+
+.copyIconInsideInput:hover {
+  color: #007bff;
+}

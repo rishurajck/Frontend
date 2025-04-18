@@ -1,0 +1,18 @@
+.accountSubmit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 86vh;
+}
+
+.submitContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.successImg {
+  width: 100px;
+  height: 100px;
+}

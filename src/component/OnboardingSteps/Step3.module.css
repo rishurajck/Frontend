@@ -1,0 +1,175 @@
+.container {
+  padding: 1.5rem;
+  font-family: "Inter", sans-serif;
+  max-height: 85vh;
+  overflow-y: auto;
+  max-width: 79vw;
+  margin: 0 auto;
+  p {
+    margin-bottom: 20px;
+  }
+}
+.content {
+  margin-top: 30px;
+  font-size: 14px;
+}
+.contents {
+  font-size: 14px;
+}
+.checks {
+  padding-left: 40px;
+  font-size: 16px;
+}
+.navigationBtn {
+  display: flex;
+  gap: 10px;
+}
+.formWrapper {
+  max-width: 75vw;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.description {
+  margin: 10px 0 20px;
+  color: #555;
+  font-size: 1.05rem;
+}
+
+.stepsList {
+  list-style-type: decimal;
+
+  padding-left: 1.5rem;
+  color: #333;
+}
+
+.stepsList li {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.link {
+  color: #0073e6;
+  text-decoration: underline;
+}
+
+.checkboxContainer,
+.radioContainer {
+  margin-top: 0.75rem;
+}
+
+.checkboxContainer input,
+.radioContainer input {
+  margin-right: 6px;
+}
+
+.checkboxContainer label,
+.radioContainer label {
+  font-size: 1rem;
+}
+
+.codeBlock {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 0.75rem;
+  overflow-x: auto;
+  font-family: monospace;
+  font-size: 0.9rem;
+  max-height: 30vh;
+  overflow-y: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  position: relative;
+}
+
+.codeBlock pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  flex-grow: 1;
+}
+
+.copyIcon {
+  cursor: pointer;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.copyIcon:hover {
+  color: #007bff;
+}
+
+.inputContainer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.readOnlyInput {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  width: 100%;
+  flex-grow: 1;
+  font-size: 1rem;
+}
+
+.imageContainer {
+  margin-top: 1rem;
+}
+
+.stepImage {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.cancel {
+  background: transparent;
+  color: #555;
+  border: 1px solid #aaa;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cancel:hover {
+  background-color: rgba(203, 203, 203, 0.3);
+}
+
+.next {
+  background-color: #1a73e8;
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.next:hover {
+  background-color: #024295;
+}
