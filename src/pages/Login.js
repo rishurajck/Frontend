@@ -42,6 +42,7 @@ function Login() {
         details
       );
       const userData = response.data;
+
       dispatch(setUser(userData));
       toast.success("Login Successful ✅", {
         position: "top-right",
@@ -70,7 +71,7 @@ function Login() {
     <div className={styles.loginCard}>
       <ToastContainer />
       <div className={styles.loginHeader}>
-        <img src={logo} alt="CloudBalance" id="logo" />
+        <img src={logo} alt="CloudBalance" className={styles.logo} />
         <form onSubmit={handleSubmit} className={styles.loginForm}>
           {FormConfig.slice(0, 2).map((form) => (
             <Input

@@ -8,10 +8,7 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 function UserTable() {
   const [users, setUsers] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 13;
   const { user } = useSelector((state) => state.auth);
-
   const navigate = useNavigate();
 
   const handleEdit = (user) => {
@@ -33,21 +30,8 @@ function UserTable() {
     fetchUsers();
   }, [user]);
 
-  // Pagination logic
-  const totalPages = Math.ceil(users.length / usersPerPage);
-  const startIndex = (currentPage - 1) * usersPerPage;
-  const currentUsers = users.slice(startIndex, startIndex + usersPerPage);
-
-  const handleNext = () => {
-    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
-  };
-
-  const handlePrev = () => {
-    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
-  };
-
   return (
-    <>
+    <div className={styles.tableWrapper}>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -61,7 +45,7 @@ function UserTable() {
           </tr>
         </thead>
         <tbody>
-          {currentUsers.map((user, index) => (
+          {users.map((user, index) => (
             <tr key={index} className={styles.tr}>
               <td className={styles.td}>{user.id}</td>
               <td className={styles.td}>{user.firstname}</td>
@@ -81,27 +65,7 @@ function UserTable() {
           ))}
         </tbody>
       </table>
-
-      <div className={styles.paginationContainer}>
-        <button
-          className={styles.paginationButton}
-          onClick={handlePrev}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span className={styles.pageInfo}>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          className={styles.paginationButton}
-          onClick={handleNext}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
-    </>
+    </div>
   );
 }
 

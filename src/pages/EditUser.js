@@ -33,7 +33,6 @@ function EditUser() {
         });
 
         const userData = res.data;
-        console.log(userData);
 
         setValues({
           firstname: userData.firstname || "",
@@ -103,14 +102,16 @@ function EditUser() {
       accounts: assignedAccounts.map((acc) => acc.id),
     };
 
-    console.log(dataUser);
-
     try {
-      await axios.put(`http://localhost:8080/updateUser/${id}`, dataUser, {
-        headers: { Authorization: `Bearer ${user?.token}` },
-      });
+      const res = await axios.put(
+        `http://localhost:8080/updateUser/${id}`,
+        dataUser,
+        {
+          headers: { Authorization: `Bearer ${user?.token}` },
+        }
+      );
 
-      toast.success("User Updated Successfully", {
+      toast.success(res.data.message, {
         position: "top-right",
         theme: "colored",
         autoClose: 800,

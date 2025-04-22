@@ -1,6 +1,6 @@
 .activityContainer {
   margin-top: 12px;
-  width: 65vw;
+  width: 79vw;
   height: 80vh;
   background-color: white;
 }
@@ -9,7 +9,7 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 5px;
-  padding: 2px 20px;
+  padding: 8px 14px;
 }
 .listing {
   list-style-type: none;

@@ -30,14 +30,13 @@ function Step3({ onNext, onBack, onCancel }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(data);
 
     try {
-      await axios.post("http://localhost:8080/addAccounts", data, {
+      const res = await axios.post("http://localhost:8080/addAccounts", data, {
         headers: { Authorization: `Bearer ${user?.token}` },
       });
 
-      toast.success("Account Added", {
+      toast.success(res.data.message, {
         position: "top-right",
         theme: "colored",
       });

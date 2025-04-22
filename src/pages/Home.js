@@ -21,7 +21,6 @@ function Home() {
 
   const logout = async () => {
     try {
-      console.log(user?.token);
       await axios.post(
         "http://localhost:8080/api/logout",
         {},
@@ -31,10 +30,11 @@ function Home() {
           },
         }
       );
-      dispatch(logoutUser());
-      navigate("/");
     } catch (error) {
       console.error("Logout failed:", error);
+    } finally {
+      dispatch(logoutUser());
+      navigate("/");
     }
   };
 
@@ -52,7 +52,7 @@ function Home() {
                 icon={faCircleUser}
                 className={styles.greetIcon}
               />
-              Welcome! {user?.username}{" "}
+              Welcome! {user?.firstname}{" "}
             </li>
             <li>
               <button className={styles.logoutBtn} onClick={logout}>

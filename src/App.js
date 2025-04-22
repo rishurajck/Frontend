@@ -53,7 +53,7 @@ function App() {
           <Route
             path="onboarding"
             element={
-              <ProtectedRoute allowedRoles={["admin", "read_only"]}>
+              <ProtectedRoute allowedRoles={["admin"]}>
                 <Onboarding />
               </ProtectedRoute>
             }
@@ -61,7 +61,7 @@ function App() {
           <Route
             path="onboarding/accountOnboarding"
             element={
-              <ProtectedRoute allowedRoles={["admin", "read_only"]}>
+              <ProtectedRoute allowedRoles={["admin"]}>
                 <AccountSubmit />
               </ProtectedRoute>
             }

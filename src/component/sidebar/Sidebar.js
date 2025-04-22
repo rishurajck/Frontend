@@ -39,10 +39,6 @@ function Sidebar() {
             <FontAwesomeIcon icon={faUser} className={styles.umIcon} />
             User Management
           </NavLink>
-          <NavLink to="/dashboard/onboarding" className={styles.onboarding}>
-            <FontAwesomeIcon icon={faUsers} className={styles.onboardIcon} />
-            Onboarding Form
-          </NavLink>
         </>
       )}
       {(role === "admin" || role === "read_only" || role === "customer") && (

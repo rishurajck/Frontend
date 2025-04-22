@@ -81,8 +81,8 @@ function CreateUser() {
         }
       );
 
-      if (res.data) {
-        toast.success(res.data, {
+      if (res.data.message) {
+        toast.success(res.data.message, {
           position: "top-right",
           theme: "colored",
         });

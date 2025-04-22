@@ -1,0 +1,190 @@
+.awsService {
+  max-height: 85vh;
+  max-width: 79vw;
+  height: 85vh;
+  padding: 1rem;
+  background-color: #f9fafb;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ---------- Top Navigation Bar ---------- */
+.homeNav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 1.5rem;
+}
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.para {
+  font-size: 14px;
+  color: grey;
+}
+
+.homeIcon {
+  width: 40px;
+  height: 20px;
+  color: #2563eb;
+}
+
+/* ---------- Account Select Dropdown ---------- */
+.selectWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.selectWrapper label {
+  font-size: 12px;
+  color: #4b5563;
+}
+
+.selectWrapper select {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  min-width: 220px;
+  background-color: white;
+  outline: none;
+}
+
+.selectWrapper select:focus {
+  border-color: #2563eb;
+}
+
+/* ---------- Tabs for AWS Services ---------- */
+.tabContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.tabContainer h3 {
+  margin: 0;
+  color: #1f2937;
+  font-size: 18px;
+}
+
+.tabButton {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: #4b5563;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.tabButton:hover {
+  color: #2563eb;
+  border-color: #93c5fd;
+}
+
+.active {
+  color: #2563eb;
+  border-color: #2563eb;
+}
+
+/* ---------- AWS Details Table ---------- */
+.awsTableWrapper {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow-x: auto;
+}
+
+.awsTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.awsTable thead {
+  background-color: #1e4c7d;
+}
+
+.awsTable th,
+.awsTable td {
+  border: 1px solid #e0e0e0;
+  padding: 12px 29px;
+  text-align: left;
+  /* border-bottom: 1px solid #e0e0e0; */
+}
+
+.awsTable th {
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.awsTable td {
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.awsTable tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.awsTable tbody tr:hover {
+  background-color: #edf2f7;
+  transition: background-color 0.2s ease;
+}
+
+/* Style for the select dropdown */
+.selectWrapper select {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  min-width: 220px;
+  background-color: white;
+  outline: none;
+  color: #1f2937;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%204%205'%3E%3Cpath%20fill='%23666'%20d='M2%200L0%202h4L2%200zM2%205L0%203h4L2%205z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 8px 10px;
+}
+
+.selectWrapper select:focus {
+  border-color: #2563eb;
+}
+
+/* Style for options */
+.selectWrapper select option {
+  background-color: #ffffff;
+  color: #1f2937;
+  padding: 0.5rem;
+  font-size: 14px;
+}
+
+/* Optional: Hover effect for options (only visible on some browsers) */
+.selectWrapper select option:hover {
+  background-color: #e0f2fe;
+}
+
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
