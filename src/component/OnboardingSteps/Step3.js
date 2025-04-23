@@ -5,12 +5,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Step3Config from "./Step3Config";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import AxiosInstance from "../../config/AxiosInstance";
 function Step3({ onNext, onBack, onCancel }) {
   const data = useSelector((state) => state.form.values);
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
   const handleCopy = async (text, type) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -32,14 +31,13 @@ function Step3({ onNext, onBack, onCancel }) {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:8080/addAccounts", data, {
-        headers: { Authorization: `Bearer ${user?.token}` },
-      });
+      const res = await AxiosInstance.post("/addAccounts", data);
 
       toast.success(res.data.message, {
         position: "top-right",
         theme: "colored",
       });
+
       setTimeout(() => {
         navigate("/dashboard/onboarding/accountOnboarding");
       }, 800);
@@ -50,7 +48,6 @@ function Step3({ onNext, onBack, onCancel }) {
       });
     }
   };
-
   return (
     <div className={styles.container}>
       <ToastContainer />

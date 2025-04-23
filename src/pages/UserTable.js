@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import styles from "../pages/UserTable.module.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
+import AxiosInstance from "../config/AxiosInstance";
 
 function UserTable() {
   const [users, setUsers] = useState([]);
@@ -18,9 +18,7 @@ function UserTable() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/usermanagement", {
-          headers: { Authorization: `Bearer ${user?.token}` },
-        });
+        const res = await AxiosInstance.get("/usermanagement");
         setUsers(res.data);
       } catch (err) {
         console.error("Failed to fetch users", err);

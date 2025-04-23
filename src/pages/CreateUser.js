@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import styles from "../pages/CreateUser.module.css";
 import { useNavigate } from "react-router-dom";
 import FormConfig from "../config/Formconfig";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import AxiosInstance from "../config/AxiosInstance";
 
 function CreateUser() {
   const navigate = useNavigate();
@@ -18,7 +18,6 @@ function CreateUser() {
   });
   const [allAccounts, setAllAccounts] = useState([]);
   const [assignedAccounts, setAssignedAccounts] = useState([]);
-
   const { user } = useSelector((state) => state.auth);
   const handleClick = () => navigate("/dashboard/usermanagement");
   const roleOptions = ["ADMIN", "READ_ONLY", "CUSTOMER"];
@@ -26,9 +25,7 @@ function CreateUser() {
   useEffect(() => {
     const fetchAccounts = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/accounts", {
-          headers: { Authorization: `Bearer ${user?.token}` },
-        });
+        const res = await AxiosInstance.get("/accounts");
         setAllAccounts(res.data);
       } catch (error) {
         toast.error("Failed to fetch accounts");
@@ -54,32 +51,15 @@ function CreateUser() {
       setAssignedAccounts((prev) => [...prev, account]);
     }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const emailField = FormConfig.find((f) => f.name === "email");
-    const { pattern: emailPattern, errorMsg: emailError } =
-      emailField.validation || {};
-
-    if (emailPattern && !emailPattern.test(values.email)) {
-      toast.error(emailError || "Invalid email format");
-      return;
-    }
-
     try {
       const payload = {
         ...values,
         accounts: assignedAccounts.map((acc) => acc.id),
       };
 
-      const res = await axios.post(
-        "http://localhost:8080/createuser",
-        payload,
-        {
-          headers: { Authorization: `Bearer ${user?.token}` },
-        }
-      );
+      const res = await AxiosInstance.post("/createuser", payload);
 
       if (res.data.message) {
         toast.success(res.data.message, {
@@ -87,6 +67,7 @@ function CreateUser() {
           theme: "colored",
         });
       }
+
       setTimeout(() => {
         navigate("/dashboard/usermanagement");
       }, 800);
@@ -153,6 +134,9 @@ function CreateUser() {
                   className={styles.inputField}
                   value={values[field.name]}
                   onChange={handleChange}
+                  minLength={field.validation?.minLength}
+                  pattern={field.validation?.pattern?.source}
+                  title={field.validation?.errorMsg}
                   required
                 />
               </div>
@@ -174,6 +158,8 @@ function CreateUser() {
                   className={styles.inputField}
                   value={values[field.name]}
                   onChange={handleChange}
+                  pattern={field.validation?.pattern?.source}
+                  title={field.validation?.errorMsg}
                   required
                 />
               </div>

@@ -4,6 +4,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserTable from "../../pages/UserTable";
+
 function UserManagement() {
   const navigate = useNavigate();
   return (

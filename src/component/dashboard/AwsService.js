@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./AwsService.module.css";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import ClipLoader from "react-spinners/ClipLoader";
+import AxiosInstance from "../../config/AxiosInstance";
 
 function AwsService() {
   const awsServices = ["EC2", "RDS", "ASG"];
@@ -23,21 +23,12 @@ function AwsService() {
 
       try {
         if (role === "CUSTOMER") {
-          const customerResponse = await axios.get(
-            `http://localhost:8080/account/${user?.username}`,
-            {
-              headers: {
-                Authorization: `Bearer ${user?.token}`,
-              },
-            }
+          const customerResponse = await AxiosInstance.get(
+            `/account/${user?.username}`
           );
           setAccounts(customerResponse.data);
         } else {
-          const response = await axios.get("http://localhost:8080/accounts", {
-            headers: {
-              Authorization: `Bearer ${user?.token}`,
-            },
-          });
+          const response = await AxiosInstance.get("/accounts");
           setAccounts(response.data);
         }
       } catch (error) {
@@ -46,7 +37,7 @@ function AwsService() {
     };
 
     fetchAccounts();
-  }, [user?.token]);
+  }, [user?.token, user?.role, user?.username]);
 
   // Fetch AWS Details for Selected Account
   useEffect(() => {
@@ -54,16 +45,10 @@ function AwsService() {
       if (!selectedAccount) return;
       setLoading(true);
       try {
-        const response = await axios.get(
-          `http://localhost:8080/${selected}/${selectedAccount}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user?.token}`,
-            },
-          }
+        const response = await AxiosInstance.get(
+          `/${selected}/${selectedAccount}`
         );
         console.log(response.data);
-
         setAwsDetails(response.data);
       } catch (error) {
         console.error("Error fetching AWS details:", error);
@@ -107,7 +92,7 @@ function AwsService() {
         </div>
       </div>
 
-      {/* Service Tabs */}
+      {/* Switching Tabs */}
       <div className={styles.tabContainer}>
         <h3>Scheduler</h3>
         <div>

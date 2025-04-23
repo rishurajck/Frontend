@@ -6,9 +6,9 @@ import Sidebar from "../component/sidebar/Sidebar";
 import Footer from "../component/footer/Footer";
 import styles from "./Home.module.css";
 import logo from "../assets/Cloudkeeper_New.svg";
-import axios from "axios";
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AxiosInstance from "../config/AxiosInstance";
 
 function Home() {
   const { user } = useSelector((state) => state.auth);
@@ -21,15 +21,7 @@ function Home() {
 
   const logout = async () => {
     try {
-      await axios.post(
-        "http://localhost:8080/api/logout",
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      );
+      await AxiosInstance.post("/api/logout");
     } catch (error) {
       console.error("Logout failed:", error);
     } finally {
@@ -52,8 +44,9 @@ function Home() {
                 icon={faCircleUser}
                 className={styles.greetIcon}
               />
-              Welcome! {user?.firstname}{" "}
+              Welcome!{user?.firstname}
             </li>
+
             <li>
               <button className={styles.logoutBtn} onClick={logout}>
                 LogOut

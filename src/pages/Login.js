@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { setUser } from "../redux/actions/authActions";
@@ -10,6 +9,7 @@ import Input from "../component/input/Input";
 import FormConfig from "../config/Formconfig";
 import Button from "../component/button/Button";
 import Footer from "../component/footer/Footer";
+import AxiosInstance from "../config/AxiosInstance";
 
 function Login() {
   const [details, setDetails] = useState({ username: "", password: "" });
@@ -23,27 +23,12 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const passwordField = FormConfig.find((f) => f.name === "password");
-    const { minLength, pattern, errorMsg } = passwordField.validation || {};
-
-    if (minLength && details.password.length < minLength) {
-      toast.error(errorMsg || "Password too short");
-      return;
-    }
-
-    if (pattern && !pattern.test(details.password)) {
-      toast.error(errorMsg || "Password pattern mismatch");
-      return;
-    }
-
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/login",
-        details
-      );
+      const response = await AxiosInstance.post("/api/login", details);
       const userData = response.data;
 
       dispatch(setUser(userData));
+
       toast.success("Login Successful ✅", {
         position: "top-right",
         theme: "colored",
@@ -60,7 +45,7 @@ function Login() {
         }
       }, 800);
     } catch (error) {
-      toast.error("Invalid Credentials ❌", {
+      toast.error("Invalid Credentials!", {
         position: "top-right",
         theme: "colored",
       });

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import styles from "./EditUser.module.css";
 import { useSelector } from "react-redux";
 import FormConfig from "../config/Formconfig";
 import { toast, ToastContainer } from "react-toastify";
+import AxiosInstance from "../config/AxiosInstance";
 
 function EditUser() {
   const navigate = useNavigate();
@@ -25,13 +25,11 @@ function EditUser() {
   const roleOptions = ["ADMIN", "READ_ONLY", "CUSTOMER"];
 
   // Fetch user details
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/editUser/${id}`, {
-          headers: { Authorization: `Bearer ${user?.token}` },
-        });
-
+        const res = await AxiosInstance.get(`/editUser/${id}`);
         const userData = res.data;
 
         setValues({
@@ -54,9 +52,7 @@ function EditUser() {
   useEffect(() => {
     const fetchAccounts = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/accounts", {
-          headers: { Authorization: `Bearer ${user?.token}` },
-        });
+        const res = await AxiosInstance.get("/accounts");
 
         const fetchedAccounts = res.data;
 
@@ -103,13 +99,7 @@ function EditUser() {
     };
 
     try {
-      const res = await axios.put(
-        `http://localhost:8080/updateUser/${id}`,
-        dataUser,
-        {
-          headers: { Authorization: `Bearer ${user?.token}` },
-        }
-      );
+      const res = await AxiosInstance.put(`/updateUser/${id}`, dataUser);
 
       toast.success(res.data.message, {
         position: "top-right",

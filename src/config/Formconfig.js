@@ -12,12 +12,12 @@ export const FormConfig = [
     label: "Password",
     type: "password",
     placeholder: "Enter password",
-    // validation: {
-    //   minLength: 5,
-    //   pattern: /^(?=.*[A-Z])(?=.*\d).+$/, // one uppercase, one number
-    //   errorMsg:
-    //     "Password must be at least 8 characters, include an uppercase letter and a number",
-    // },
+    validation: {
+      minLength: 6,
+      pattern: /^(?=.*[A-Z])(?=.*\d).+$/, // one uppercase, one number
+      errorMsg:
+        "Password must be at least 8 characters, include an uppercase letter and a number",
+    },
   },
   {
     id: "firstname",
