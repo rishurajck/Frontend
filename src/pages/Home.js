@@ -5,7 +5,7 @@ import { logoutUser } from "../redux/actions/authActions";
 import Sidebar from "../component/sidebar/Sidebar";
 import Footer from "../component/footer/Footer";
 import styles from "./Home.module.css";
-import logo from "../assets/Cloudkeeper_New.svg";
+import logo from "../assets/cloudlogo.png";
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AxiosInstance from "../config/AxiosInstance";

@@ -37,7 +37,7 @@ function AwsService() {
     };
 
     fetchAccounts();
-  }, [user?.token, user?.role, user?.username]);
+  }, [user?.role, user?.username]);
 
   // Fetch AWS Details for Selected Account
   useEffect(() => {
@@ -48,7 +48,7 @@ function AwsService() {
         const response = await AxiosInstance.get(
           `/${selected}/${selectedAccount}`
         );
-        console.log(response.data);
+
         setAwsDetails(response.data);
       } catch (error) {
         console.error("Error fetching AWS details:", error);

@@ -26,10 +26,10 @@
   align-items: center;
 }
 .greet {
-  color: white;
+  color: black;
   width: 150%;
   height: 50px;
-  background-color: #1e4c7d;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -49,17 +49,14 @@
 
 .mainContent {
   flex: 1;
-  /* display: flex; */
-  /* justify-content: center; */
-  /* align-items: center; */
   background-color: rgba(242, 231, 231, 0.643);
   color: black;
   padding: 20px;
 }
 .logo {
-  width: 100%;
-  max-width: 15rem;
-  height: auto;
+  width: 110%;
+  margin-left: 10px;
+  height: 3.3rem;
 }
 
 .logoutBtn {

@@ -3,13 +3,13 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { setUser } from "../redux/actions/authActions";
-import logo from "../assets/Cloudkeeper_New.svg";
+import logo from "../assets/cloudlogo.png";
 import styles from "../pages/Login.module.css";
 import Input from "../component/input/Input";
 import FormConfig from "../config/Formconfig";
 import Button from "../component/button/Button";
 import Footer from "../component/footer/Footer";
-import AxiosInstance from "../config/AxiosInstance";
+import axios from "axios";
 
 function Login() {
   const [details, setDetails] = useState({ username: "", password: "" });
@@ -24,11 +24,13 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await AxiosInstance.post("/api/login", details);
+      const response = await axios.post(
+        "http://localhost:8080/api/login",
+        details
+      );
       const userData = response.data;
 
       dispatch(setUser(userData));
-
       toast.success("Login Successful ✅", {
         position: "top-right",
         theme: "colored",
@@ -45,7 +47,7 @@ function Login() {
         }
       }, 800);
     } catch (error) {
-      toast.error("Invalid Credentials!", {
+      toast.error("Invalid Credentials ❌", {
         position: "top-right",
         theme: "colored",
       });

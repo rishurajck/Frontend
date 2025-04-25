@@ -22,10 +22,6 @@ function UserManagement() {
               Add New User
             </button>
           </li>
-          <li className={styles.listing}>Reset Filters</li>
-          <li className={styles.listing}>
-            <button>Active {"  "} All</button>
-          </li>
         </nav>
         <UserTable />
       </div>
