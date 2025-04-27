@@ -15,6 +15,7 @@
   margin-bottom: 15px;
   color: #333;
   font-weight: 500;
+  align-items: center;
 }
 
 .navLinks .homeIcon {
@@ -168,7 +169,10 @@ select:focus {
   border-radius: 5px;
   text-transform: uppercase;
 }
-
+.data {
+  display: flex;
+  justify-content: space-around;
+}
 /* Chart wrapper styling */
 .chartWrapper {
   margin-top: 20px;
@@ -251,4 +255,124 @@ select:focus {
   max-height: 85vh;
   height: 85vh;
   overflow-y: auto;
+}
+
+/* General container styles */
+.filterButtonContainer {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-height: 600px; /* Max height for the container */
+  overflow-y: auto; /* Make it scrollable when the content exceeds max-height */
+  width: 300px; /* Fixed width for the container */
+  margin: 20px auto; /* Center the container */
+}
+
+/* Button styling */
+.filterButtonContainer button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.filterButtonContainer button:hover {
+  background-color: #0056b3;
+}
+
+/* Group Filters Section */
+.groupFilters {
+  margin-bottom: 20px;
+}
+
+.groupFilters ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.groupFilters li {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+
+.groupFilters input {
+  margin-right: 10px;
+}
+
+/* Styling for <h3> in the group filters section */
+.groupFilters h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Selected Filters Section */
+.selectedFilters {
+  margin-bottom: 20px;
+}
+
+.selectedFilters ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.selectedFilters li {
+  margin: 5px 0;
+}
+
+/* Styling for <h4> in selected filters section */
+.selectedFilters h4 {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Filters Groups Data Section (Box for Products) */
+.filtersGroupsBox {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  max-height: 300px; /* Max height for the filter data box */
+  overflow-y: auto; /* Make it scrollable */
+}
+
+/* Styling for <h4> inside filters groups */
+.filtersGroupsBox h4 {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Filters Groups List */
+.filtersGroupsList {
+  display: flex;
+  flex-direction: column;
+}
+
+.filterGroupItem {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.filterGroupItem input {
+  margin-right: 10px;
+}
+
+/* Styling for <p> elements in the component */
+p {
+  font-size: 14px;
+  color: #666;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
