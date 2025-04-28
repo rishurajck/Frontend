@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import ClipLoader from "react-spinners/ClipLoader";
 import AxiosInstance from "../../config/AxiosInstance";
+import { faCopy } from "@fortawesome/free-solid-svg-icons";
+import { toast, ToastContainer } from "react-toastify";
 
 function AwsService() {
   const awsServices = ["EC2", "RDS", "ASG"];
@@ -13,14 +15,24 @@ function AwsService() {
   const [selectedAccount, setSelectedAccount] = useState("");
   const [awsDetails, setAwsDetails] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(""); // <-- NEW
 
   const { user } = useSelector((state) => state.auth);
+
+  const handleCopy = (value) => {
+    navigator.clipboard.writeText(value);
+
+    toast.success("Data Copied", {
+      position: "top-right",
+      theme: "colored",
+      autoClose: 1000,
+    });
+  };
 
   // Fetch AWS Accounts
   useEffect(() => {
     const fetchAccounts = async () => {
       const role = user?.role;
-
       try {
         if (role === "CUSTOMER") {
           const customerResponse = await AxiosInstance.get(
@@ -48,7 +60,6 @@ function AwsService() {
         const response = await AxiosInstance.get(
           `/${selected}/${selectedAccount}`
         );
-
         setAwsDetails(response.data);
       } catch (error) {
         console.error("Error fetching AWS details:", error);
@@ -65,9 +76,18 @@ function AwsService() {
     setSelectedAccount(e.target.value);
   };
 
+  // 🔥 Filtered AWS Details based on search
+  const filteredAwsDetails = awsDetails.filter((item) =>
+    Object.values(item)
+      .join(" ")
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className={styles.awsService}>
       {/* Navigation */}
+      <ToastContainer />
       <div className={styles.homeNav}>
         <div className={styles.navLinks}>
           <FontAwesomeIcon icon={faHouseUser} className={styles.homeIcon} />
@@ -110,26 +130,91 @@ function AwsService() {
         </div>
       </div>
 
+      <div className={styles.controls}>
+        <input
+          type="text"
+          placeholder="Search AWS Details..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className={styles.searchInput}
+        />
+      </div>
+
       {/* AWS Details Table */}
       <div className={styles.awsTableWrapper}>
         {loading ? (
           <div className={styles.loaderWrapper}>
             <ClipLoader color="#3498db" loading={loading} size={60} />
           </div>
-        ) : awsDetails.length > 0 ? (
+        ) : filteredAwsDetails.length > 0 ? (
           <table className={styles.awsTable}>
             <thead>
               <tr>
-                {Object.keys(awsDetails[0]).map((key) => (
+                {Object.keys(filteredAwsDetails[0]).map((key) => (
                   <th key={key}>{key.toUpperCase()}</th>
                 ))}
               </tr>
             </thead>
-            <tbody>
-              {awsDetails.map((item, index) => (
+            {/* <tbody>
+              {filteredAwsDetails.map((item, index) => (
                 <tr key={index}>
                   {Object.values(item).map((value, i) => (
                     <td key={i}>{String(value)}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody> */}
+            {/* <tbody>
+              {filteredAwsDetails.map((item, index) => (
+                <tr key={index}>
+                  {Object.entries(item).map(([key, value], i) => (
+                    <td key={i}>
+                      {key.toLowerCase() === "resourceid" ? (
+                        <>
+                          {String(value)}
+                          <FontAwesomeIcon
+                            icon={faCopy}
+                            className={styles.copyIcon}
+                            onClick={() => handleCopy(value)}
+                            title="Copy Resource ID"
+                            style={{ marginLeft: "8px", cursor: "pointer" }}
+                          />
+                        </>
+                      ) : (
+                        String(value)
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+             */}
+            <tbody>
+              {filteredAwsDetails.map((item, index) => (
+                <tr key={index}>
+                  {Object.entries(item).map(([key, value], i) => (
+                    <td key={i}>
+                      {key.toLowerCase() === "resourceid" ? (
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                          }}
+                        >
+                          <span>{String(value)}</span>
+                          <FontAwesomeIcon
+                            icon={faCopy}
+                            className={styles.copyIcon}
+                            onClick={() => handleCopy(value)}
+                            title="Copy Resource ID"
+                            style={{ cursor: "pointer" }}
+                          />
+                        </div>
+                      ) : (
+                        String(value)
+                      )}
+                    </td>
                   ))}
                 </tr>
               ))}

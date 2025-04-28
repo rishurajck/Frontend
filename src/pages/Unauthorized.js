@@ -13,7 +13,7 @@ const Unauthorized = () => {
         You don't have permission to view this page. Please login with the
         appropriate account.
       </p>
-      <button onClick={() => navigate("/login")} className={styles.button}>
+      <button onClick={() => navigate("/")} className={styles.button}>
         Go to Login
       </button>
     </div>

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import FormConfig from "../config/Formconfig";
 import { toast, ToastContainer } from "react-toastify";
 import AxiosInstance from "../config/AxiosInstance";
+import Button from "../component/button/Button";
 
 function EditUser() {
   const navigate = useNavigate();
@@ -25,6 +26,9 @@ function EditUser() {
   const roleOptions = ["ADMIN", "READ_ONLY", "CUSTOMER"];
 
   // Fetch user details
+  const handleCancel = () => {
+    navigate("/dashboard/usermanagement");
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -261,6 +265,12 @@ function EditUser() {
           <button type="submit" className={styles.submitBtn}>
             Save User
           </button>
+          <Button
+            text="Cancel"
+            className={styles.cancelBtn}
+            type="button"
+            onClick={handleCancel}
+          />
         </div>
       </form>
     </div>

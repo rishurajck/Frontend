@@ -9,6 +9,7 @@ import logo from "../assets/cloudlogo.png";
 import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AxiosInstance from "../config/AxiosInstance";
+import { toast, ToastContainer } from "react-toastify";
 
 function Home() {
   const { user } = useSelector((state) => state.auth);
@@ -21,30 +22,48 @@ function Home() {
 
   const logout = async () => {
     try {
+      toast.success("Logging Out! Please Wait", {
+        position: "top-right",
+        theme: "colored",
+        autoClose: 800,
+      });
       await AxiosInstance.post("/api/logout");
+
+      setTimeout(() => {
+        dispatch(logoutUser());
+        navigate("/");
+      }, 1200);
     } catch (error) {
-      console.error("Logout failed:", error);
-    } finally {
-      dispatch(logoutUser());
-      navigate("/");
+      toast.error(
+        { error },
+        {
+          position: "top-right",
+          theme: "colored",
+          autoClose: 800,
+        }
+      );
     }
   };
 
   return (
     <div className={styles.homeLayout}>
       <nav>
+        <ToastContainer />
         <ul className={styles.navBar}>
           <li>
             <img className={styles.logo} src={logo} alt="CloudBalance" />
           </li>
           <div className={styles.greeting}>
             <li className={styles.greet}>
-              {" "}
               <FontAwesomeIcon
                 icon={faCircleUser}
                 className={styles.greetIcon}
               />
-              Welcome!{user?.firstname}
+              Welcome! {user?.firstname}
+              <p className={styles.roleWrapper}>
+                <strong>Role: </strong>
+                {user?.role}
+              </p>
             </li>
 
             <li>

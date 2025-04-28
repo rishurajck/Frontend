@@ -5,6 +5,7 @@ import FormConfig from "../config/Formconfig";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import AxiosInstance from "../config/AxiosInstance";
+import Button from "../component/button/Button";
 
 function CreateUser() {
   const navigate = useNavigate();
@@ -84,6 +85,9 @@ function CreateUser() {
         });
       }
     }
+  };
+  const handleCancel = () => {
+    navigate("/dashboard/usermanagement");
   };
 
   return (
@@ -232,6 +236,12 @@ function CreateUser() {
           <button type="submit" className={styles.submitBtn}>
             Create User
           </button>
+          <Button
+            text="Cancel"
+            className={styles.cancelBtn}
+            type="button"
+            onClick={handleCancel}
+          />
         </div>
       </form>
     </div>

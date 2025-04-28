@@ -41,7 +41,7 @@ const FusionChart = ({ tableData }) => {
       subcaption: "Top Usage Costs",
       xaxisname: labelKey,
       yaxisname: valueKey,
-      theme: "gammel",
+      theme: "fusion",
       drawcrossline: "1",
       showvalues: "1",
     },

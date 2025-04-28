@@ -63,7 +63,7 @@ function Step1({ onNext }) {
                 </div>
               )}
 
-              {step.type === "text" && <p>{step.content}</p>}
+              {step.type === "text" && <div>{step.content}</div>}
 
               {step.type === "readonly" && (
                 <div className={styles.inputContainer}>

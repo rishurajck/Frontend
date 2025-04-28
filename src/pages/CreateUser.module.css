@@ -86,7 +86,8 @@ select.inputField option {
   padding: 10px;
 }
 
-.submitBtn {
+.submitBtn,
+.cancelBtn {
   height: 45px;
   padding: 0 30px;
   background-color: rgb(62, 62, 171);
@@ -97,9 +98,12 @@ select.inputField option {
   font-size: 15px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  height: 2.5rem;
+  width: 10rem;
 }
 
-.submitBtn:hover {
+.submitBtn:hover,
+.cancelBtn:hover {
   background-color: rgb(45, 45, 130);
 }
 

@@ -3,12 +3,12 @@
   font-family: "Inter", sans-serif;
   max-height: 85vh;
   overflow-y: auto;
-  max-width: 80vw;
+  max-width: 100vw;
   margin: 0 auto;
 }
 
 .formWrapper {
-  max-width: 75vw;
+  max-width: 100vw;
   background-color: white;
   padding: 1.5rem;
   border-radius: 12px;

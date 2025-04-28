@@ -22,6 +22,7 @@
 .greeting {
   display: flex;
   justify-content: space-around;
+
   gap: 68px;
   align-items: center;
 }
@@ -30,14 +31,22 @@
   width: 150%;
   height: 50px;
 
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   gap: 10px;
   padding-left: 10px;
   padding-right: 10px;
 }
-
+.greetIcon {
+  /* padding: 20px; */
+  margin-right: 10px;
+}
+.roleWrapper {
+  text-align: center;
+  color: black;
+}
 .hello {
   flex: 1;
   display: flex;

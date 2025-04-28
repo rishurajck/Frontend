@@ -9,7 +9,7 @@ function AccountSubmit() {
         <h4>Thank You For CUR Access!</h4>
         <p>
           If you have additional accounts to onboard, please click{" "}
-          <a href="?"> Onboard</a> to proceed.
+          <a href="/dashboard/onboarding"> Onboard</a> to proceed.
         </p>
       </div>
     </div>

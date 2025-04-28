@@ -203,6 +203,7 @@ function CostExplorer() {
         `/snowflake/dynamic-query?groupBy=${selectedGroup}`, // Add groupBy as query parameter
         requestBody
       );
+      console.log(requestBody);
 
       // Handle the response, assuming the response contains the table data
       setTableData(response.data);
@@ -224,6 +225,8 @@ function CostExplorer() {
   // Dynamically generate table headers based on the keys of the first item in tableData
   const tableHeaders =
     tableData && tableData.length > 0 ? Object.keys(tableData[0]) : [];
+  console.log(startDate);
+  console.log(endDate);
 
   return (
     <div className={styles.costExplorer}>
@@ -295,11 +298,23 @@ function CostExplorer() {
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         >
+          <option>01 2025</option>
+          <option>02 2025</option>
+          <option>03 2025</option>
           <option>04 2025</option>
+          <option>05 2025</option>
+          <option>06 2025</option>
+          <option>07 2025</option>
         </select>
         <label className={styles.labels}>End Date:</label>
         <select value={endDate} onChange={(e) => setEndDate(e.target.value)}>
-          <option>05 2025</option>
+          <option>01 2025</option>
+          <option>02 2025</option>
+          <option>03 2025</option>
+          <option>04 2025</option>
+          <option>04 2025</option>
+          <option>06 2025</option>
+          <option>07 2025</option>
         </select>
       </div>
 

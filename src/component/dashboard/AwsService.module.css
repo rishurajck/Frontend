@@ -1,6 +1,6 @@
 .awsService {
   max-height: 85vh;
-  max-width: 79vw;
+  max-width: 100vw;
   height: 85vh;
   padding: 1rem;
   background-color: #f9fafb;
@@ -187,4 +187,18 @@
   justify-content: center;
   align-items: center;
   height: 200px;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-start;
+  margin: 16px 0;
+}
+
+.searchInput {
+  padding: 8px;
+  font-size: 16px;
+  width: 50%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }

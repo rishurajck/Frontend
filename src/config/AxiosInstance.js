@@ -1,5 +1,6 @@
 import axios from "axios";
 import store from "../redux/store";
+import { toast } from "react-toastify";
 
 const AxiosInstance = axios.create({
   baseURL: "http://localhost:8080/",
@@ -25,9 +26,18 @@ AxiosInstance.interceptors.response.use(
 
       if (status === 401) {
         localStorage.removeItem("token");
+        toast.success("Session Expired! Please Login Again!", {
+          position: "top-right",
+          theme: "colored",
+          autoClose: 800,
+        });
         window.location.href = "/";
       } else if (status === 500) {
-        console.warn("Server error. Try again later.");
+        toast.success("Some Error Occurred!", {
+          position: "top-right",
+          theme: "colored",
+          autoClose: 800,
+        });
       }
     }
 

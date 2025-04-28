@@ -1,5 +1,6 @@
 .editUser {
   margin: 0 auto;
+  max-height: 86vh;
   padding: 2rem;
   background-color: #fff;
   border-radius: 12px;
@@ -16,7 +17,7 @@ h1 {
 .formContainer {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.2rem;
 }
 
 .row {
@@ -59,7 +60,7 @@ h1 {
 }
 
 .accountSectionWrapper {
-  padding: 1.5rem;
+  padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 12px;
   background-color: #fafafa;
@@ -148,8 +149,9 @@ h1 {
   color: #007bff;
 }
 
-.submitBtn {
-  background-color: #007bff;
+.submitBtn,
+.cancelBtn {
+  background-color: rgb(62, 62, 171);
   color: white;
   font-size: 1rem;
   padding: 0.75rem 1.5rem;
@@ -158,8 +160,11 @@ h1 {
   cursor: pointer;
   transition: background-color 0.3s;
   align-self: flex-end;
+  height: 2.5rem;
+  width: 10rem;
 }
 
-.submitBtn:hover {
-  background-color: #0056b3;
+.submitBtn:hover,
+.cancelBtn:hover {
+  background-color: rgb(45, 45, 130);
 }
