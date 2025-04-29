@@ -38,10 +38,13 @@ function AwsService() {
           const customerResponse = await AxiosInstance.get(
             `/account/${user?.username}`
           );
-          setAccounts(customerResponse.data);
+          setAccounts(customerResponse.data[0].accountId);
         } else {
           const response = await AxiosInstance.get("/accounts");
+          console.log(response);
+
           setAccounts(response.data);
+          setSelectedAccount(response.data[18].accountId);
         }
       } catch (error) {
         console.error("Error fetching accounts:", error);

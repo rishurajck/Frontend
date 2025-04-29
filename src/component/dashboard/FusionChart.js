@@ -2,9 +2,10 @@ import React from "react";
 import FusionCharts from "fusioncharts";
 import charts from "fusioncharts/fusioncharts.charts";
 import ReactFusioncharts from "react-fusioncharts";
+import FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
 
-// Resolve charts dependency
 charts(FusionCharts);
+FusionTheme(FusionCharts);
 
 const FusionChart = ({ tableData }) => {
   if (!tableData || tableData.length === 0) return null;
@@ -52,7 +53,7 @@ const FusionChart = ({ tableData }) => {
   return (
     <ReactFusioncharts
       type="mscolumn2d"
-      width="74%"
+      width="44%"
       height="555"
       dataFormat="JSON"
       dataSource={dataSource}

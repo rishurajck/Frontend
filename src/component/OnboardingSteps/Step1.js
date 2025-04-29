@@ -17,6 +17,28 @@ function Step1({ onNext }) {
     const { name, value } = e.target;
     dispatch(setFormValues({ ...values, [name]: value }));
   };
+  const handleNextClick = () => {
+    // List of fields you want to validate
+    const requiredFields = FormConfig.slice(-3);
+
+    // Check if any required field is empty
+    const emptyFields = requiredFields.filter(
+      (field) => !values?.[field.name]?.trim()
+    );
+
+    if (emptyFields.length > 0) {
+      // Show a toast error message
+      toast.error(`Please fill out all the fields before proceeding!`, {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "colored",
+      });
+      return; // Prevent going to next step
+    }
+
+    // All fields are filled -> go to next step
+    onNext();
+  };
 
   const handleCopy = async (text, type) => {
     try {
@@ -114,8 +136,10 @@ function Step1({ onNext }) {
       </div>
 
       <div className={styles.buttons}>
-        <button className={styles.cancel}>Cancel</button>
-        <button className={styles.next} onClick={onNext}>
+        <button className={styles.cancel} disabled>
+          Cancel
+        </button>
+        <button className={styles.next} onClick={handleNextClick}>
           Next - Add Customer Managed Policies
         </button>
       </div>

@@ -88,7 +88,7 @@
   border: 1px solid #aaa;
   padding: 0.6rem 1.5rem;
   border-radius: 8px;
-  cursor: pointer;
+  cursor: not-allowed;
 }
 
 .cancel:hover {

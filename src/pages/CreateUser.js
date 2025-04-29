@@ -41,6 +41,9 @@ function CreateUser() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setValues((prev) => ({ ...prev, [name]: value }));
+    if (name === "role" && value !== "CUSTOMER") {
+      setAssignedAccounts([]);
+    }
   };
 
   const handleAccountToggle = (account) => {

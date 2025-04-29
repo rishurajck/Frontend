@@ -157,7 +157,7 @@ function CostExplorer() {
           const response = await AxiosInstance.get("/accounts");
           setAccounts(response.data);
           if (response.data.length > 0) {
-            setSelectedAccount(response.data[0].accountId);
+            setSelectedAccount(response.data[21].accountId);
           }
         }
       } catch (error) {
