@@ -7,6 +7,9 @@ import { useSelector } from "react-redux";
 import FusionChart from "./FusionChart";
 import FusionLineChart from "./FusionLineChart";
 import * as XLSX from "xlsx";
+import FullScreenLoader from "../../config/FullScreenLoader.js";
+import { toast, ToastContainer } from "react-toastify";
+import Button from "../button/Button.js";
 
 function CostExplorer() {
   const [groupOptions, setGroupOptions] = useState([]);
@@ -19,6 +22,8 @@ function CostExplorer() {
   const [groupFilters, setGroupFilters] = useState([]);
   const [filtersGroups, setFiltersGroups] = useState([]); // To store the API response for selected filters
   const [selectedFilters, setSelectedFilters] = useState({});
+  const [selectedGroupFilters, setSelectedGroupFilters] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const maxVisible = 7;
   const { user } = useSelector((state) => state.auth);
@@ -45,17 +50,12 @@ function CostExplorer() {
       },
     };
 
-    console.log(requestBody);
-
     try {
       // Fetch data
       const response = await AxiosInstance.post(
         `/snowflake/download?groupBy=${selectedGroup}`, // Add groupBy as query parameter
         requestBody
       );
-      const dataset = response.data;
-      console.log(dataset);
-
       // Check if the response contains the expected data
       if (response.status === 200) {
         const excelData = response.data;
@@ -77,32 +77,14 @@ function CostExplorer() {
 
         // Write the workbook and trigger download
         XLSX.writeFile(wb, "data.xlsx");
-
-        console.log("Excel file downloaded successfully");
-      } else {
-        console.error(
-          "Error: Unable to fetch the data. Status code:",
-          response.status
-        );
       }
     } catch (error) {
-      console.error("Error fetching table data:", error);
+      toast.error("Download Failed", {
+        position: "top-right",
+        theme: "colored",
+      });
     }
   };
-
-  useEffect(() => {
-    const fetchGroups = async () => {
-      try {
-        const response = await AxiosInstance.get("/snowflake/column");
-        const displayNames = response.data.map((group) => group.displayName);
-        setGroupFilters(displayNames); // Set the fetched group filters
-      } catch (error) {
-        console.error("Error fetching group options:", error);
-      }
-    };
-    fetchGroups();
-  }, []);
-
   // Handle checkbox selection/deselection and update the selectedFilters state
   const handleCheckboxChange = (event, group) => {
     const { value, checked } = event.target;
@@ -136,9 +118,12 @@ function CostExplorer() {
 
   // Function to clear all selected filters
   const clearFilters = () => {
-    setSelectedFilters({}); // Reset the selectedFilters state
-    setFiltersGroups([]); // Optionally reset the filtersGroups as well if needed
+    console.log(selectedFilters);
+
+    setSelectedFilters({});
+    setSelectedGroupFilters([]);
   };
+  console.log(groupFilters);
 
   // Fetch available groups from API
   useEffect(() => {
@@ -147,6 +132,7 @@ function CostExplorer() {
         const response = await AxiosInstance.get("/snowflake/column");
         const displayNames = response.data.map((group) => group.displayName);
         setGroupOptions(displayNames);
+        setGroupFilters(displayNames);
       } catch (error) {
         console.error("Error fetching group options:", error);
       }
@@ -175,7 +161,10 @@ function CostExplorer() {
           }
         }
       } catch (error) {
-        console.error("Error fetching accounts:", error);
+        toast.error("Failed to fetch Accounts", {
+          position: "top-right",
+          theme: "colored",
+        });
       }
     };
     fetchAccounts();
@@ -188,10 +177,22 @@ function CostExplorer() {
 
   // Fetch table data based on selected filters
   const fetchTableData = async () => {
+    setLoading(true);
     try {
+      const formatDate = (dateString) => {
+        const dateObj = new Date(dateString); // Parse the string into a date object
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // Get month in MM format
+        return `${year}-${month}`; // Return formatted string "YYYY-MM"
+      };
+
+      // Formatting both startDate and endDate
+      const startMonth = formatDate(startDate);
+      const endMonth = formatDate(endDate);
+
       const requestBody = {
-        startMonth: `${startDate.split(" ")[1]}-${startDate.split(" ")[0]}`, // Format "YYYY-MM"
-        endMonth: `${endDate.split(" ")[1]}-${endDate.split(" ")[0]}`, // Format "YYYY-MM"
+        startMonth, // Use the formatted start month
+        endMonth, // Use the formatted end month
         filters: {
           LINKEDACCOUNTID: [selectedAccount],
           ...selectedFilters,
@@ -203,12 +204,13 @@ function CostExplorer() {
         `/snowflake/dynamic-query?groupBy=${selectedGroup}`, // Add groupBy as query parameter
         requestBody
       );
-      console.log(requestBody);
 
       // Handle the response, assuming the response contains the table data
       setTableData(response.data);
     } catch (error) {
       console.error("Error fetching table data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -225,11 +227,24 @@ function CostExplorer() {
   // Dynamically generate table headers based on the keys of the first item in tableData
   const tableHeaders =
     tableData && tableData.length > 0 ? Object.keys(tableData[0]) : [];
-  console.log(startDate);
-  console.log(endDate);
+
+  const handleGroupFilterChange = (group) => {
+    setSelectedGroupFilters((prevSelected) => {
+      if (prevSelected.includes(group)) {
+        // Uncheck (remove from array)
+        return prevSelected.filter((g) => g !== group);
+      } else {
+        // Check (add to array)
+        fetchFiltersForGroup(group); // Also load the filters
+        return [...prevSelected, group];
+      }
+    });
+  };
 
   return (
     <div className={styles.costExplorer}>
+      <ToastContainer />
+      <FullScreenLoader loading={loading} />
       <div className={styles.navLinks}>
         <FontAwesomeIcon icon={faHouseUser} className={styles.homeIcon} />
         {">"}
@@ -261,13 +276,12 @@ function CostExplorer() {
         <span className={styles.selectedLabel}>{selectedGroup}</span>
 
         {visibleGroups.map((label) => (
-          <button
+          <Button
             key={label}
+            text={label}
             className={styles.groupBtn}
             onClick={() => handleGroupSelect(label)}
-          >
-            {label}
-          </button>
+          />
         ))}
 
         {moreGroups.length > 0 && (
@@ -298,38 +312,39 @@ function CostExplorer() {
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         >
-          <option>01 2025</option>
-          <option>02 2025</option>
-          <option>03 2025</option>
-          <option>04 2025</option>
-          <option>05 2025</option>
-          <option>06 2025</option>
-          <option>07 2025</option>
+          <option>Jan 2025</option>
+          <option>Feb 2025</option>
+          <option>March 2025</option>
+          <option>April 2025</option>
+          <option>May 2025</option>
+          <option>June 2025</option>
+          <option>July 2025</option>
         </select>
         <label className={styles.labels}>End Date:</label>
         <select value={endDate} onChange={(e) => setEndDate(e.target.value)}>
-          <option>01 2025</option>
-          <option>02 2025</option>
-          <option>03 2025</option>
-          <option>04 2025</option>
-          <option>04 2025</option>
-          <option>06 2025</option>
-          <option>07 2025</option>
+          <option>Jan 2025</option>
+          <option>Feb 2025</option>
+          <option>March 2025</option>
+          <option>April 2025</option>
+          <option>May 2025</option>
+          <option>June 2025</option>
+          <option>July 2025</option>
         </select>
       </div>
 
-      {/* Table Data */}
+      {/* Chart Data  and filter part */}
       <div className={styles.data}>
         <div className={styles.chartWrapper}>
-          {tableData && <FusionChart tableData={tableData} />}
+          {tableData && tableData.length > 0 ? (
+            <FusionChart tableData={tableData} />
+          ) : (
+            <div>No Data Found</div>
+          )}
         </div>
+
         {/* <FilterButton /> */}
         <div className={styles.filterButtonContainer}>
-          <button onClick={() => console.log("Filter button clicked")}>
-            Filter
-          </button>
-
-          {/* Render the group options with checkboxes */}
+          <h3 className={styles.header}>Filters</h3>
           <div className={styles.groupFilters}>
             <h3>Select Groups</h3>
             <ul>
@@ -338,14 +353,14 @@ function CostExplorer() {
                   <input
                     type="checkbox"
                     value={group}
-                    onChange={() => fetchFiltersForGroup(group)} // Load filters for this group
+                    checked={selectedGroupFilters.includes(group)}
+                    onChange={() => handleGroupFilterChange(group)}
                   />
                   {group}
                 </li>
               ))}
             </ul>
           </div>
-
           {/* Render Filters Groups Data dynamically */}
           {filtersGroups.length > 0 && (
             <div className={styles.filtersGroupsBox}>
@@ -374,17 +389,22 @@ function CostExplorer() {
               </div>
             </div>
           )}
-
           {/* Clear Filters Button */}
-          <button className={styles.clearFiltersButton} onClick={clearFilters}>
-            Clear Filters
-          </button>
+
+          <Button
+            text="Clear Filters"
+            className={styles.downloadButton}
+            type="button"
+            onClick={clearFilters}
+          />
         </div>
       </div>
-
+      {/* {Line Chart Displayed here} */}
       <div className={styles.chartWrapper}>
-        {tableData && (
+        {tableData && tableData.length > 0 ? (
           <FusionLineChart tableData={tableData} chartType="msline" />
+        ) : (
+          <div>No Data Found!</div>
         )}
       </div>
 
@@ -393,9 +413,14 @@ function CostExplorer() {
         <div className={styles.heading}>
           We are showing Top5 records by Cost.
         </div>
-        <button className={styles.downloadButton} onClick={data}>
-          Download Excel
-        </button>
+        <div className={styles.downloadWrapper}>
+          <Button
+            text="Download Excel"
+            className={styles.downloadButton}
+            type="button"
+            onClick={data}
+          />
+        </div>
         <table className={styles.table}>
           <thead>
             <tr>

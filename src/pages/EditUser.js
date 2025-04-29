@@ -166,6 +166,7 @@ function EditUser() {
                   value={values[field.name]}
                   onChange={handleChange}
                   required
+                  disabled
                 />
               </div>
             );

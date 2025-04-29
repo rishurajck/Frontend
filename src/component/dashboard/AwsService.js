@@ -155,40 +155,6 @@ function AwsService() {
                 ))}
               </tr>
             </thead>
-            {/* <tbody>
-              {filteredAwsDetails.map((item, index) => (
-                <tr key={index}>
-                  {Object.values(item).map((value, i) => (
-                    <td key={i}>{String(value)}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody> */}
-            {/* <tbody>
-              {filteredAwsDetails.map((item, index) => (
-                <tr key={index}>
-                  {Object.entries(item).map(([key, value], i) => (
-                    <td key={i}>
-                      {key.toLowerCase() === "resourceid" ? (
-                        <>
-                          {String(value)}
-                          <FontAwesomeIcon
-                            icon={faCopy}
-                            className={styles.copyIcon}
-                            onClick={() => handleCopy(value)}
-                            title="Copy Resource ID"
-                            style={{ marginLeft: "8px", cursor: "pointer" }}
-                          />
-                        </>
-                      ) : (
-                        String(value)
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-             */}
             <tbody>
               {filteredAwsDetails.map((item, index) => (
                 <tr key={index}>

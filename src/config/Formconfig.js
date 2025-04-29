@@ -5,6 +5,7 @@ export const FormConfig = [
     name: "username",
     placeholder: "Enter Username",
     label: "Username",
+    length: 30,
   },
   {
     id: "password",
@@ -25,6 +26,14 @@ export const FormConfig = [
     name: "firstname",
     placeholder: "Enter First Name",
     label: "First Name ",
+    maxLength: 20,
+    minLength: 3,
+    validate: (value) => {
+      if (value.length > 20) {
+        return "First name cannot exceed 20 characters.";
+      }
+      return ""; // No error
+    },
   },
   {
     id: "lastname",
