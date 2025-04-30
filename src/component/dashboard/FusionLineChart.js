@@ -43,6 +43,7 @@ const FusionChart = ({ tableData, chartType = "mscolumn2d" }) => {
       theme: "fusion",
       drawcrossline: "1",
       showvalues: "1",
+      showhovereffect: "1",
     },
     categories: categories,
     dataset: dataset,

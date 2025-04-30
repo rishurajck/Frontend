@@ -113,6 +113,10 @@ function CostExplorer() {
       setFiltersGroups(response.data); // Set the filters for this group
     } catch (error) {
       console.error("Error fetching filter details:", error);
+      toast.error("Failed to fetch data", {
+        position: "top-right",
+        theme: "colored",
+      });
     }
   };
 
@@ -209,6 +213,10 @@ function CostExplorer() {
       setTableData(response.data);
     } catch (error) {
       console.error("Error fetching table data:", error);
+      toast.error("Failed to fetch data", {
+        position: "top-right",
+        theme: "colored",
+      });
     } finally {
       setLoading(false);
     }

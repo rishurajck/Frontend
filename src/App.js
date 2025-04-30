@@ -11,12 +11,10 @@ import CreateUser from "./pages/CreateUser.js";
 import Unauthorized from "./pages/Unauthorized.js";
 import EditUser from "./pages/EditUser.js";
 import AccountSubmit from "./pages/AccountSubmit.js";
-import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <BrowserRouter>
-      <ToastContainer />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route

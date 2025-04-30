@@ -11,16 +11,15 @@ const FusionChart = ({ tableData }) => {
   if (!tableData || tableData.length === 0) return null;
 
   // Take label from first item's key (item[0])
-  const labelKey = Object.keys(tableData[0])[0]; // e.g., "USAGE_MONTH"
-  const seriesKey = Object.keys(tableData[0])[1]; // e.g., "LINEITEM_USAGETYPE" or "PRODUCT_PRODUCTNAME"
-  const valueKey = Object.keys(tableData[0])[2]; // e.g., "TOTAL_USAGE_COST"
+  const labelKey = Object.keys(tableData[0])[0]; //  "USAGE_MONTH"
+  const seriesKey = Object.keys(tableData[0])[1]; // "LINEITEM_USAGETYPE" or "PRODUCT_PRODUCTNAME"
+  const valueKey = Object.keys(tableData[0])[2]; //  "TOTAL_USAGE_COST"
 
-  // Build the category label (only one column on x-axis)
   const categories = [
     {
       category: [
         {
-          label: tableData[0][labelKey], // "2025-04"
+          label: tableData[0][labelKey],
         },
       ],
     },

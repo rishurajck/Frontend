@@ -38,7 +38,8 @@ function AwsService() {
           const customerResponse = await AxiosInstance.get(
             `/account/${user?.username}`
           );
-          setAccounts(customerResponse.data[0].accountId);
+          setAccounts(customerResponse.data);
+          setSelectedAccount(customerResponse.data[0].accountId);
         } else {
           const response = await AxiosInstance.get("/accounts");
           console.log(response);
@@ -66,6 +67,10 @@ function AwsService() {
         setAwsDetails(response.data);
       } catch (error) {
         console.error("Error fetching AWS details:", error);
+        toast.error("Failed to fetch AWS data", {
+          position: "top-right",
+          theme: "colored",
+        });
         setAwsDetails([]);
       } finally {
         setLoading(false);
@@ -171,7 +176,7 @@ function AwsService() {
                             alignItems: "center",
                           }}
                         >
-                          <span>{String(value)}</span>
+                          <span>{String(value).toUpperCase()}</span>
                           <FontAwesomeIcon
                             icon={faCopy}
                             className={styles.copyIcon}
@@ -181,7 +186,7 @@ function AwsService() {
                           />
                         </div>
                       ) : (
-                        String(value)
+                        String(value).toUpperCase()
                       )}
                     </td>
                   ))}
