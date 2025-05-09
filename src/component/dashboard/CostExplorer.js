@@ -24,7 +24,7 @@ function CostExplorer() {
   const [selectedFilters, setSelectedFilters] = useState({});
   const [selectedGroupFilters, setSelectedGroupFilters] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  console.log("cost explorer");
   const maxVisible = 7;
   const { user } = useSelector((state) => state.auth);
 

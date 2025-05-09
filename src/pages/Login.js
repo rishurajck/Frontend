@@ -43,7 +43,7 @@ function Login() {
             navigate("/dashboard/costexplorer");
             break;
           default:
-            navigate("/dashboard/usermanagement");
+            navigate("/dashboard/costexplorer");
         }
       }, 800);
     } catch (error) {

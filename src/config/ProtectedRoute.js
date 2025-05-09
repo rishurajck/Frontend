@@ -3,19 +3,19 @@ import { Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const ProtectedRoute = ({ allowedRoles, children }) => {
-  //Fetching current User Object
   const user = useSelector((state) => state.auth.user);
 
-  // user not logged in => navigate to login("/")
   if (!user) return <Navigate to="/" replace />;
-  const role = user?.role?.toLowerCase();
 
-  // authorization
-  return allowedRoles.includes(role) ? (
-    children
-  ) : (
-    <Navigate to="/unauthorized" replace />
-  );
+  const role = user?.role?.toLowerCase() ?? "";
+  console.log(role, "role");
+  console.log(allowedRoles, "allowedRoles");
+  if (!allowedRoles.includes(role)) {
+    console.warn(`Access denied: role "${role}" not in`, allowedRoles);
+    return <Navigate to="/unauthorized" replace />;
+  }
+
+  return children;
 };
 
 export default ProtectedRoute;

@@ -26,7 +26,6 @@ function App() {
           }
         >
           <Route
-            index
             path="usermanagement"
             element={
               <ProtectedRoute allowedRoles={["admin", "read_only"]}>
@@ -67,7 +66,6 @@ function App() {
             }
           />
           <Route
-            index
             path="costexplorer"
             element={
               <ProtectedRoute allowedRoles={["admin", "read_only", "customer"]}>

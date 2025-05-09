@@ -3,6 +3,7 @@ import styles from "./UserManagement.module.css";
 import UserTable from "../../pages/UserTable";
 
 function UserManagement() {
+  console.log("here");
   return (
     <div className={styles.userManagement}>
       <h2>Users</h2>

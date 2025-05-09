@@ -82,6 +82,9 @@ function EditUser() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === "role" && (value === "ADMIN" || value === "READ_ONLY")) {
+      setAssignedAccounts([]); // Clear assigned accounts when switching to "ADMIN" or "READ_ONLY"
+    }
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
